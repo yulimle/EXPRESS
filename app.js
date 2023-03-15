@@ -13,10 +13,12 @@ app.use(express.static('public'));
 const mainRouter = require('./routes'); // index파일 생략 가능
 const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
+const dbRouter = require('./routes/db');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
+app.use('/db', dbRouter);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);
