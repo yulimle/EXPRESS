@@ -8,14 +8,20 @@
   <title>Main page</title>
   <!--localhost:4000/public/-->
   <link rel="stylesheet" href="/css/style.css">
-  <script defer src="/js/main.js"></script>
 </head>
 
 <body>
-  <h1>메인 페이지입니다!</h1>
-  <p><%= msg %></p>
+  <h1>Welcome to Lim's Express Service</h1>
 
+  <h2><a href="/users">회원 서비스</a></h2>
+  <h2><a href="/dbBoard">게시판 서비스</a></h2>
   <img src="/images/dog.jpg" alt="강아지">
+  <script>
+    //console.log(document.cookie);
+    //document.cookie = "user=lim; expires=17 Mar 2023 13:00:00 GMT; path=/";
+    //document.cookie = "test=kdt; expires=17 Mar 2023 13:00:00 GMT; path=/"; 
+    console.log(document.cookie);
+  </script>
 </body>
 
 </html>
