@@ -1,7 +1,7 @@
 const connection = require('./dbConnect');
 
 const boardDB = {
-  // 모든 게시글 가져오기
+  // 모든 게시글 가져오는 함수
   getAllArticles: (cb) => {
     connection.query('SELECT * FROM mydb.board;', (err, data) => {
       if (err) throw err;
@@ -10,7 +10,7 @@ const boardDB = {
     });
   },
 
-  // 게시글 추가하기
+  // 게시글 추가하는 함수
   writeArticle: (newArticle, cb) => {
     connection.query(
       `INSERT INTO mydb.board (TITLE, CONTENT) values ('${newArticle.title}','${newArticle.content}');`,
