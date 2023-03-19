@@ -37,7 +37,7 @@ router.post('/write', isLogin, (req, res) => {
       if (data.affectedRows >= 1) {
         res.redirect('/dbBoard');
       } else {
-        const err = new Error('글 스기 실패');
+        const err = new Error('글 쓰기 실패');
         err.statusCode = 500;
         throw err;
       }
