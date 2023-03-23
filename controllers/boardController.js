@@ -22,6 +22,7 @@ const getAllArticles = async (req, res) => {
 };
 
 const writeArticle = async (req, res) => {
+  console.log('@@@@@@@@@@@@@@@@');
   try {
     const client = await mongoClient.connect();
     const board = client.db('kdt5').collection('board');
@@ -29,6 +30,7 @@ const writeArticle = async (req, res) => {
       USER_ID: req.session.userId,
       TITLE: req.body.title,
       CONTENT: req.body.content,
+      IMAGE: req.file ? req.file.filename : null,
     };
     await board.insertOne(newArticle);
     res.redirect('/dbBoard');
@@ -58,13 +60,16 @@ const modifyArticle = async (req, res) => {
   try {
     const client = await mongoClient.connect();
     const board = client.db('kdt5').collection('board');
+    console.log(req.file);
+    const modify = {
+      TITLE: req.body.title,
+      CONTENT: req.body.content,
+    };
+    if (req.file) modify.IMAGE = req.file.filename;
     await board.updateOne(
       { _id: ObjectId(req.params.id) },
       {
-        $set: {
-          TITLE: req.body.title,
-          CONTENT: req.body.content,
-        },
+        $set: modify,
       },
     );
     res.redirect('/dbBoard');

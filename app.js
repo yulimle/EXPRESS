@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs'); // 어떤 view engine으로 웹페이지를 그릴 것인지 express에게 알려줌
 app.use(express.static('public')); // 브라우저에서 접근이 가능한 폴더의 위치를 지정해 주는 역할 localhost:4000/public/에서 시작
+app.use('/uploads', express.static('uploads'));
 app.use(cookieParser('lim'));
 app.use(
   session({

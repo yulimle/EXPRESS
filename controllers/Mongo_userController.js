@@ -1,5 +1,4 @@
-require('./mongooseConnect');
-const User = require('../models/user');
+const mongoClient = require('./mongoConnect');
 
 // 코드 리팩토링
 const UNEXPECTED_MSG =
@@ -17,9 +16,11 @@ const LOGIN_WRONG_PASSWORD_MSG =
   '비밀번호가 틀렸습니다.<br><a href="/login">로그인으로 이동</a>';
 const registerUser = async (req, res) => {
   try {
-    const duplicatedUser = await User.findOne({ id: req.body.id });
+    const client = await mongoClient.connect();
+    const user = client.db('kdt5').collection('user');
+    const duplicatedUser = await user.findOne({ id: req.body.id });
     if (duplicatedUser) return res.status(400).send(DUPLICATED_MSG);
-    await User.create(req.body);
+    await user.insertOne(req.body);
     res.status(200).send(SUCCESS_MSG); // 원래는 json으로 메세지 보냄, html로 보내려고 send 씀
   } catch (err) {
     console.error(err);
@@ -30,7 +31,9 @@ const registerUser = async (req, res) => {
 // 로그인
 const loginUser = async (req, res) => {
   try {
-    const findUser = await User.findOne({
+    const client = await mongoClient.connect();
+    const user = client.db('kdt5').collection('user');
+    const findUser = await user.findOne({
       id: req.body.id,
     });
     // 아디가 없으면?
